@@ -1,15 +1,15 @@
 
 
 
-let drumPlayers = new Tone.Players({kick: "https://teropa.info/ext-assets/drumkit/kick.mp3",
-hatClosed: "https://teropa.info/ext-assets/drumkit/hatClosed.mp3",
-hatOpen: "https://teropa.info/ext-assets/drumkit/hatOpen2.mp3",
+let classicPlayers = new Tone.Players({kick: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F32569__erh__indian-brass-pestle-lo.wav?v=1598375651970t",
+hatClosed: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F85794__sandyrb__native-flute-figure-05.wav?v=1598376180986",
+hatOpen: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F47665__arnaud-coutancier__tibetan-bowl-bol-tibet-attac.wav?v=1598375947315",
 snare: "https://teropa.info/ext-assets/drumkit/snare3.mp3",
 tomLow: "https://teropa.info/ext-assets/drumkit/tomLow.mp3",
 tomMid: "https://teropa.info/ext-assets/drumkit/tomMid.mp3",
 tomHigh: "https://teropa.info/ext-assets/drumkit/tomHigh.mp3",
-ride: "https://teropa.info/ext-assets/drumkit/ride.mp3",
-crash: "https://teropa.info/ext-assets/drumkit/hatOpen.mp3",
+ride: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F380750__anjds__veena-classical.wav?v=1598376365808",
+crash: " https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F403661__jdagenet__processed-sitar-tone-1.wav?v=1598374632496",
 // b:"https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2Fzimbalom.wav?v=1597245767265"
   
 }
@@ -17,13 +17,13 @@ crash: "https://teropa.info/ext-assets/drumkit/hatOpen.mp3",
 let drumPattern=[
   ["0:0:0", "kick"],
   ["0:1:0", "hatClosed"],
-  ["0:1:2", "kick"],
-  ["0:2:0", "kick"],
+  ["0:1:2", "crash"],
+  ["0:2:0", "ride"],
   ["0:3:0", "hatClosed"],
   ["1:0:0", "kick"],
   ["1:1:0", "hatClosed"],
   ["1:2:0", "kick"],
-  ["1:2:3", "kick"],
+  ["1:2:3", "ride"],
   ["1:3:0", "hatClosed"],
   ["1:3:2", "kick"],
   ["1:3:2", "hatOpen"],
@@ -52,16 +52,16 @@ let midiDrum=new Map([
   [53, "ride"],
   [59, "ride"],
 ])
-let drumPart = new Tone.Part((time, drum) => {
-  drumPlayers.player(drum).start(time);
+let classicPart = new Tone.Part((time, classic) => {
+  classicPlayers.player(classic).start(time);
 }, drumPattern).start();
-drumPart.loop = true;
-drumPart.loopStart = 0;
-drumPart.loopEnd = '2m';
+classicPart.loop = true;
+classicPart.loopStart = 0;
+classicPart.loopEnd = '2m';
 //time can be expressed :"1n","2n"....
 
 let leadSampler=new Tone.Sampler({urls:{
-  'C2':'https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2Fzimbalom.wav?v=1597245767265'
+  'C2':'https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F47665__arnaud-coutancier__tibetan-bowl-bol-tibet-attac.wav?v=1598375947315'
   
 }, 
 volume: 4
