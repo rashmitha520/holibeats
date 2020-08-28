@@ -1,75 +1,64 @@
+let raag = new Tone.Players({
+a:"https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F360771__sankalp__kampitam-gamaka-in-carnatic-music.wav?v=1598627867571",
+
+
+}).toDestination()
+let raagPattern=[
+  ["0:1:0","a"],
+]
 
 
 
-let classicPlayers = new Tone.Players({kick: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F32569__erh__indian-brass-pestle-lo.wav?v=1598375651970t",
+document.getElementById("raag").onclick = async () => {
+  let raagPart = new Tone.Part((time, voice) => {
+    raag.player(voice).start(time);
+  }, raagPattern).start();
+  raagPart.loop = true;
+  raagPart.loopStart = 0;
+  raagPart.loopEnd = '1m';
+}
+
+let classicPlayers = new Tone.Players({
+kick: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F32569__erh__indian-brass-pestle-lo.wav?v=1598375651970t",
 hatClosed: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F85794__sandyrb__native-flute-figure-05.wav?v=1598376180986",
 hatOpen: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F47665__arnaud-coutancier__tibetan-bowl-bol-tibet-attac.wav?v=1598375947315",
-snare: "https://teropa.info/ext-assets/drumkit/snare3.mp3",
-tomLow: "https://teropa.info/ext-assets/drumkit/tomLow.mp3",
-tomMid: "https://teropa.info/ext-assets/drumkit/tomMid.mp3",
-tomHigh: "https://teropa.info/ext-assets/drumkit/tomHigh.mp3",
-ride: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F380750__anjds__veena-classical.wav?v=1598376365808",
+ride: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F147896__mannhawks__mark-sitar-03.wav?v=1598446386701",
 crash: " https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F403661__jdagenet__processed-sitar-tone-1.wav?v=1598374632496",
 // b:"https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2Fzimbalom.wav?v=1597245767265"
   
 }
   ).toDestination()
-let drumPattern=[
-  ["0:0:0", "kick"],
-  ["0:1:0", "hatClosed"],
-  ["0:1:2", "crash"],
-  ["0:2:0", "ride"],
-  ["0:3:0", "hatClosed"],
+let classicPattern=[
+  ["0:0:0","hatOpen"],
   ["1:0:0", "kick"],
-  ["1:1:0", "hatClosed"],
+  ["0:0:0", "ride"],
+  ["0:0:2", "crash"],
+  ["0:0:1", "ride"],
+  ["1:2:0", "hatClosed"],
+  ["1:0:9", "kick"],
+  ["1:0:0", "hatClosed"],
   ["1:2:0", "kick"],
   ["1:2:3", "ride"],
-  ["1:3:0", "hatClosed"],
+  ["1:0:0", "hatClosed"],
   ["1:3:2", "kick"],
   ["1:3:2", "hatOpen"],
 ];
-let midiDrum=new Map([
-  [36, "kick"],
-  [37, "snare"],
-  [38, "snare"],
-  [40, "snare"],
-  [42, "hatClosed"],
-  [22, "hatClosed"],
-  [44, "hatClosed"],
-  [46, "hatOpen"],
-  [26, "hatOpen"],
-  [43, "tomLow"],
-  [58, "tomLow"],
-  [47, "tomMid"],
-  [45, "tomMid"],
-  [50, "tomHigh"],
-  [48, "tomHigh"],
-  [49, "crash"],
-  [52, "crash"],
-  [55, "crash"],
-  [57, "crash"],
-  [51, "ride"],
-  [53, "ride"],
-  [59, "ride"],
-])
-let classicPart = new Tone.Part((time, classic) => {
-  classicPlayers.player(classic).start(time);
-}, drumPattern).start();
-classicPart.loop = true;
-classicPart.loopStart = 0;
-classicPart.loopEnd = '2m';
-//time can be expressed :"1n","2n"....
-
+//bg music on start
 let leadSampler=new Tone.Sampler({urls:{
-  'C2':'https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F47665__arnaud-coutancier__tibetan-bowl-bol-tibet-attac.wav?v=1598375947315'
-  
+  'C2':'https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F47665__arnaud-coutancier__tibetan-bowl-bol-tibet-attac.wav?v=1598375947315',
+  'C1':'https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F147896__mannhawks__mark-sitar-03.wav?v=1598446386701',
+ // 'B1':'https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F427849__carloscarty__dizi-flute-03.wav?v=1598458872035',
+  'A1': 'https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F85794__sandyrb__native-flute-figure-05.wav?v=1598376180986'
 }, 
 volume: 4
-})//.toDestination()
+}).toDestination()
 
 let leadPattern=[
   ["0:0:0", "E1"],
-  ["0:1:0","E1"]
+  ["0:1:0","E1"],
+  ["1:2:5","C1"],
+  ["2:2:5","B1"],
+  ["3:2:5","A1"]
   ,];
 
 let leadPart=new Tone.Part((time,note)=>{
@@ -87,32 +76,55 @@ let leadReverb = new Tone.Reverb({decay: 3, wet: 0.5})
 leadSampler.connect(leadReverb);
 
 
+// for nature sounds.
+const NatSampler = new Tone.Sampler({
+	urls: {
+    "C4": "C4.mp3",
+		"D#4": "Ds4.mp3",
+		"F#4": "Fs4.mp3",
+		"A4": "A4.mp3",
+	},
+  release: 10,
+ 
+	baseUrl: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F335992__inspectorj__waterfall-large-a.wav?v=1598548449034",
+}).toDestination();
 
-  let bass= new Tone.Synth({ oscillator:{type:"sawtooth"}, volume:-7});
+document.getElementById("nature").onclick=()=>{
+  
+ NatSampler.triggerAttackRelease(["A4", "B2", "C2"], 160);
 
-  let bassFilter=new Tone.Filter({type:"lowpass",frequency:2000});
+}
+const BirdSampler = new Tone.Sampler({
+	urls: {
+    "C4": "C4.mp3",
+		"D#4": "Ds4.mp3",
+		"F#4": "Fs4.mp3",
+		"A4": "A4.mp3",
+	},
+  release: 1,
+ 
+	baseUrl: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F122764__grigore__birds.wav?v=1598620012784",
+}).toDestination();
 
-  bass.connect(bassFilter);
-  bassFilter.toDestination();
-  document.getElementById("bass").onclick=()=>{
-  bass.triggerAttackRelease('C#2',0.1);
+document.getElementById("bird").onclick=()=>{
+ 
+ BirdSampler.triggerAttackRelease(["A4", "B2", "C2"], 160);
+
 }
 
-   let bassPattern=[
-  ['0:1:0','C#2'],
-  ['0:2:0','C#2'],
-  ['1:3:1','E1'],
-  ];
+
+let classicPart = new Tone.Part((time, classic) => {
+  classicPlayers.player(classic).start(time);
+}, classicPattern).start();
+classicPart.loop = true;
+classicPart.loopStart = 0;
+classicPart.loopEnd = '1m';
+//time can be expressed :"1n","2n"....*/
+
+
+
   
-  //c
-  let bassPart= new Tone.Part((time,note)=>{
-    bass.triggerAttackRelease(note,0.1,time); 
-    //volume:-1;     
-  },bassPattern).start();
-  
-  bassPart.loop=true;
-  bassPart.loopStart=0;
-  bassPart.loopEnd='1m';
+ 
 
   document.getElementById("start").onclick = async () => {
     await Tone.start();
@@ -148,7 +160,7 @@ leadSampler.connect(leadReverb);
       leadPart.remove(time,note);
     }
   });
- //magenta stuff
+ /*//magenta stuff
 let melodyRnn=new music_rnn.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv');
 let melodyRnnLoaded=melodyRnn.initialize()
 document.getElementById('generate-melody').onclick=async()=>{
@@ -177,4 +189,4 @@ await melodyRnnLoaded;
   }}
   console.log(combined);
   
-}
+}*/
