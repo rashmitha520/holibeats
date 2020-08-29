@@ -86,7 +86,7 @@
     <!-- import the webpage's javascript file -->
     
      <div id="s" style="color:white;margin-left:450px"><h1>YOU'RE THE MUSICIAN!</h1></div>
-      <label style="margin-left:100px;">
+      <label style="margin-left:100px; font-family: Cabin,Helvetica Neue,Helvetica,Arial,sans-serif">
         &nbsp;  BPM <input id="bpm" type="range" min="30" max="300" value="120" style="margin-left:50px;">
       </label>
     <button id="start" style="color: rgb(252,253,255);background-color: rgb(1,1,1);font-family: Cabin,Helvetica Neue,Helvetica,Arial,sans-serif;margin-left:150px;border:none">
@@ -98,9 +98,11 @@
     </button>&nbsp;
    
     <button id="raag" style="color: rgb(252,253,255);background-color: rgb(1,1,1);font-family: Cabin,Helvetica Neue,Helvetica,Arial,sans-serif;margin-left:100px;border:none">
-      RAAG</button>
+      RAAG</button><br>
+      <div id="smallsequencer"></div><br>
+      
       <div id="sequencer">
-          <div id="steps"></div>
+         
 
       </div> &nbsp;&nbsp;
       <button id="nature" style="color: rgb(252,253,255);background-color: rgb(1,1,1);border-color:violet;font-family: Cabin,Helvetica Neue,Helvetica,Arial,sans-serif;margin-left:100px;background: url;">
@@ -122,6 +124,11 @@
       background-color: violet;
    }
     #sequencer{
+        transform-style: preserve-3d;
+        opacity:0.4;
+      margin-left:20px;
+    }
+     #smallsequencer{
         transform-style: preserve-3d;
         opacity:0.4;
       margin-left:20px;
