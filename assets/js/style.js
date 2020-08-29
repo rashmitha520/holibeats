@@ -1,22 +1,72 @@
+//for the raag button
 let raag = new Tone.Players({
 a:"https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F360771__sankalp__kampitam-gamaka-in-carnatic-music.wav?v=1598627867571",
 
-
+b:"https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F360427__sankalp__example-1-of-a-melody-movement-in-raga-bhimpalasi-in-hindustani-music.wav?v=1598674443912",
 }).toDestination()
 let raagPattern=[
-  ["0:1:0","a"],
+ ["0:1:0","a"],
+ ["0:3:0","b"],
+  
 ]
-
-
-
 document.getElementById("raag").onclick = async () => {
   let raagPart = new Tone.Part((time, voice) => {
     raag.player(voice).start(time);
   }, raagPattern).start();
   raagPart.loop = true;
   raagPart.loopStart = 0;
-  raagPart.loopEnd = '1m';
+  raagPart.loopEnd = '4m';
 }
+
+// for nature sounds.
+const Nat = new Tone.Players({
+	water: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F335992__inspectorj__waterfall-large-a.wav?v=1598548449034",
+}).toDestination();
+let waterPattern=[
+  ["0:0:0","water"],
+]
+document.getElementById("nature").onclick = async () => {
+  let waterPart = new Tone.Part((time,waterw) => {
+    Nat.player(waterw).start(time);
+  }, waterPattern).start();
+  waterPart.loop = true;
+  waterPart.loopStart = 0;
+  waterPart.loopEnd = '1m';
+}
+//for birds sounds
+const Bird = new Tone.Players({
+	
+	birds: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F122764__grigore__birds.wav?v=1598620012784",
+}).toDestination();
+let birdPattern=[
+  ["0:1:0","birds"],
+]
+document.getElementById("bird").onclick = async () => {
+  let birdPart = new Tone.Part((time,birdie) => {
+    Bird.player(birdie).start(time);
+  }, birdPattern).start();
+ birdPart.loop = true;
+  birdPart.loopStart = 0;
+  birdPart.loopEnd = '1m';
+}
+//nightlife in wild
+const Wild = new Tone.Players({
+	
+	wild: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F352514__inspectorj__ambience-night-wildlife-a.wav?v=1598678849883",
+}).toDestination();
+let wildPattern=[
+  ["0:1:0","wild"],
+]
+document.getElementById("leaf").onclick = async () => {
+  let wildPart = new Tone.Part((time,wildie) => {
+    Wild.player(wildie).start(time);
+  }, wildPattern).start();
+ wildPart.loop = true;
+ wildPart.loopStart = 0;
+ wildPart.loopEnd = '1m';
+}
+
+//background or main music
 
 let classicPlayers = new Tone.Players({
 kick: "https://cdn.glitch.com/1575a522-36d9-4f64-b20a-e79e95084d78%2F32569__erh__indian-brass-pestle-lo.wav?v=1598375651970t",
@@ -74,44 +124,25 @@ leadDelay.toDestination();
 let leadReverb = new Tone.Reverb({decay: 3, wet: 0.5})
   .toDestination();
 leadSampler.connect(leadReverb);
-
-
-// for nature sounds.
-const NatSampler = new Tone.Sampler({
-	urls: {
-    "C4": "C4.mp3",
-		"D#4": "Ds4.mp3",
-		"F#4": "Fs4.mp3",
-		"A4": "A4.mp3",
-	},
-  release: 10,
+//flute sampler.
+let fluteSampler=new Tone.Sampler({urls:{
+  'E1':'https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F328971__luis-s__frasexiao.wav?v=1598721109777',
  
-	baseUrl: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F335992__inspectorj__waterfall-large-a.wav?v=1598548449034",
-}).toDestination();
+}, 
+volume: -4
+})
 
-document.getElementById("nature").onclick=()=>{
-  
- NatSampler.triggerAttackRelease(["A4", "B2", "C2"], 160);
+let flutePattern=[
+  ["0:0:0", "E1"],
+  ["0:1:0","E1"],
+  ["1:2:5","C1"],
+  ["2:2:5","B1"],
+  ["3:2:5","A1"]
+  ,];
 
-}
-const BirdSampler = new Tone.Sampler({
-	urls: {
-    "C4": "C4.mp3",
-		"D#4": "Ds4.mp3",
-		"F#4": "Fs4.mp3",
-		"A4": "A4.mp3",
-	},
-  release: 1,
- 
-	baseUrl: "https://cdn.glitch.com/0ecfa1a9-99ca-4c0e-9798-bcd165a19bfc%2F122764__grigore__birds.wav?v=1598620012784",
-}).toDestination();
 
-document.getElementById("bird").onclick=()=>{
- 
- BirdSampler.triggerAttackRelease(["A4", "B2", "C2"], 160);
 
-}
-
+//for instruments or main part.
 
 let classicPart = new Tone.Part((time, classic) => {
   classicPlayers.player(classic).start(time);
@@ -125,7 +156,7 @@ classicPart.loopEnd = '1m';
 
   
  
-
+/*start-- stop-- bpm -functions*/
   document.getElementById("start").onclick = async () => {
     await Tone.start();
     Tone.Transport.start();
@@ -139,7 +170,41 @@ classicPart.loopEnd = '1m';
       let BPM=+evt.target.value;
       Tone.Transport.bpm.value=BPM;
   }
+  //smaller sequencer
+  let smallSequencer = new Nexus.Sequencer('#smallsequencer',{
+    columns:32,
+    rows:2,
+    size:[1300,50]
+  })
+  new Tone.Loop((time)=>{
+    Tone.Draw.schedule(()=>smallSequencer.next(),time)
+  },'16n').start();
+  
+  let ssequencerRows=['C#3','E3','B3','G#3','C#2','E2','B2','G#2','C#1','E1','B1','G#1'];
+  smallSequencer.on('change',({column,row,state})=>{
+    let time={'16n':column};
+    let note=ssequencerRows[row];
+    if(state){
+      let flutePart=new Tone.Part((time,note)=>{
+  fluteSampler.triggerAttackRelease(note,"1n",time);
+},flutePattern).start();
+fluteSampler.loop=true;
+fluteSampler.loopStart=0;
+fluteSampler.loopEnd='2n';
 
+let fluteDelay = new Tone.PingPongDelay('8n.', 0.3)
+fluteSampler.connect(fluteDelay);
+fluteDelay.toDestination();
+let fluteReverb = new Tone.Reverb({decay: 3, wet: 0.5})
+  .toDestination();
+fluteSampler.connect(fluteReverb);
+      flutePart.add(time,note);
+    }
+    else{
+      flutePart.remove(time,note);
+    }
+  });
+//main sequencer.
   let sequencer = new Nexus.Sequencer('#sequencer',{
     columns:32,
     rows:12,
